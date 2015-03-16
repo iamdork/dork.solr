@@ -1,0 +1,23 @@
+- name: install java
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+  - java-1.7.0-openjdk
+
+- name: download solr
+  get_url:
+    url: http://mirror2.klaus-uwe.me/apache/lucene/solr/5.0.0/solr-5.0.0.zip
+    dest: /opt/solr.zip
+
+- name: unpack solr
+  unarchive:
+    copy: no
+    src: /opt/solr.zip
+    dest: /opt
+    creates: /opt/solr-5.0.0
+
+- name: copy example to core
+  shell: cp -r /opt/solr-5.0.0/example /opt/solr-5.0.0/core
+  args:
+    creates: /opt/solr-5.0.0/core
