@@ -16,8 +16,3 @@
     src: /opt/solr.zip
     dest: /opt
     creates: /opt/solr-5.0.0
-
-- name: copy example to core
-  shell: cp -r /opt/solr-5.0.0/example /opt/solr-5.0.0/core
-  args:
-    creates: /opt/solr-5.0.0/core
