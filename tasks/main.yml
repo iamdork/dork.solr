@@ -5,9 +5,16 @@
   with_items:
   - java-1.7.0-openjdk
 
+- set_fact:
+    solr_filename: solr-{{ solr_version }}
+
+- set_fact:
+    solr_filename: apache-solr-{{ solr_version }}
+  when: solr_version | match("^(1|2|3|4\.1)")
+
 - name: download solr
   get_url:
-    url: http://mirror2.klaus-uwe.me/apache/lucene/solr/5.0.0/solr-5.0.0.zip
+    url: http://archive.apache.org/dist/lucene/solr/{{ solr_version }}/{{ solr_filename }}.zip
     dest: /opt/solr.zip
 
 - name: unpack solr
@@ -15,4 +22,10 @@
     copy: no
     src: /opt/solr.zip
     dest: /opt
-    creates: /opt/solr-5.0.0
+    creates: /opt/{{ solr_filename }}
+
+- name: link solr
+  file:
+    src: /opt/{{ solr_filename }}
+    dest: /opt/solr
+    state: link
