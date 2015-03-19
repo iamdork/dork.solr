@@ -1,5 +1,5 @@
 dependencies:
 - { role: dork.supervisord,
     service_name: solr,
-    service_directory: /opt/solr/example
+    service_directory: /opt/solr/example,
     service_command: java -jar start.jar }
