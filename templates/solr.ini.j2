@@ -1,0 +1,4 @@
+[program:solr]
+directory = /opt/solr/example
+command = java -jar -Djetty.port={{ solr_port }} start.jar
+autostart = {{ solr_autostart }}

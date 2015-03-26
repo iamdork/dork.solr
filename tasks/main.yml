@@ -29,3 +29,13 @@
     src: /opt/{{ solr_filename }}
     dest: /opt/solr
     state: link
+
+- name: create supervisor config
+  template:
+    src: solr.ini.j2
+    dest: /etc/supervisord.d/solr.ini
+  register: supervisord
+
+- name: reload supervisord
+  shell: supervisorctl reload
+  when: supervisord.changed
