@@ -34,8 +34,4 @@
   template:
     src: solr.ini.j2
     dest: /etc/supervisord.d/solr.ini
-  register: supervisord
-
-- name: reload supervisord
-  shell: supervisorctl reload
-  when: supervisord.changed
+  notify: reload supervisor
