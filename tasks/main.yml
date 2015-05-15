@@ -1,9 +1,10 @@
-- name: install java
+- name: install packages
   yum:
     name: "{{ item }}"
     state: present
   with_items:
   - java-1.7.0-openjdk
+  - unzip
 
 - set_fact:
     solr_filename: solr-{{ solr_version }}
@@ -34,4 +35,10 @@
   template:
     src: solr.ini.j2
     dest: /etc/supervisord.d/solr.ini
-  notify: reload supervisor
+  register: supervisor
+
+- name: reload supervisor
+  supervisorctl:
+    name: solr
+    state: restarted
+  when: supervisor.changed
