@@ -37,6 +37,11 @@
     dest: /etc/supervisord.d/solr.ini
   register: supervisor
 
+- name: start solr
+  supervisorctl:
+    name: solr
+    state: started
+
 - name: reload supervisor
   supervisorctl:
     name: solr
