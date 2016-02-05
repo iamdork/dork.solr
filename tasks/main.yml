@@ -40,10 +40,4 @@
 - name: start solr
   supervisorctl:
     name: solr
-    state: started
-
-- name: reload supervisor
-  supervisorctl:
-    name: solr
-    state: restarted
-  when: supervisor.changed
+    state: present
